@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Iphone 7",
+      "price": 500,
+      "status": true
+    },
+    {
+      "name": "MacBook",
+      "price": "111",
+      "status": true,
+      "id": 2
+    },
+    {
+      "name": "MacBook",
+      "price": "111221",
+      "status": "",
+      "id": 3
+    }
+  ]
+}
