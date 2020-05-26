@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import ProductList from "./../../components/ProductList/ProductList";
-import ProductItem from "../../components/ProductItem/ProductItem";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -10,7 +9,7 @@ import {
 } from "./../../actions/index";
 class ProductListPage extends Component {
   componentDidMount() {
-    this.props.aaaaaa();
+    this.props.onFetchProduct();
   }
   onDelete = (id) => {
     this.props.onDeleteProduct(id);
@@ -51,7 +50,7 @@ const mapStatetoProps = (state) => {
 };
 const mapDispatchtoPros = (dispatch, props) => {
   return {
-    aaaaaa: () => {
+    onFetchProduct: () => {
       dispatch(actFetchProductsRequest());
     },
     onDeleteProduct: (id) => {

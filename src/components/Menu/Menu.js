@@ -32,25 +32,29 @@ const MenuLink = ({ label, to, activeOnleWhenExact }) => {
 class Menu extends Component {
   render() {
     return (
-      <div>
-        <div className="navbar navbar-default">
-          <a className="navbar-brand" href="#">
-            Call API
-          </a>
-          <ul className="nav navbar-nav">{this.showMenu(menus)}</ul>
-        </div>
+      <div className="navbar navbar-default">
+        <a className="navbar-brand" href="#">
+          Call API
+        </a>
+        <ul className="nav navbar-nav">{this.showMenu(menus)}</ul>
       </div>
     );
   }
-  showMenu=(menus)=>{
-    var result=null;
-    if(menus.length>0){
-      result=menus.map((menu,index)=>{
-          return <MenuLink  key={index} label={menu.name} to={menu.to} activeOnleWhenExact={menu.exact}
+  showMenu = (menus) => {
+    var result = null;
+    if (menus.length > 0) {
+      result = menus.map((menu, index) => {
+        return (
+          <MenuLink
+            key={index}
+            label={menu.name}
+            to={menu.to}
+            activeOnleWhenExact={menu.exact}
           />
+        );
       });
     }
     return result;
-  }
+  };
 }
 export default Menu;

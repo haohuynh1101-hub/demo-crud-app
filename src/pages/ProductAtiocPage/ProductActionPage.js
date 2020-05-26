@@ -6,11 +6,13 @@ import { connect } from "react-redux";
 import {
   actAddProductRequest,
   actGetProductRequest,
+  actUpdateProductRequest,
 } from "../../actions/index";
+import products from "../../reducers/products";
 class ProductActionPage extends Component {
   constructor(props) {
     super(props);
-    this.State = {
+    this.state = {
       id: "",
       txtName: "",
       txtPrice: "",
@@ -28,13 +30,8 @@ class ProductActionPage extends Component {
       status: chkStatus,
     };
     if (id) {
-      callApi(`products/${id}`, "PUT", {
-        name: txtName,
-        price: txtPrice,
-        status: chkStatus,
-      }).then((res) => {
-        history.goBack();
-      });
+      this.props.onUpdateProduct(product);
+      history.goBack();
     } else {
       this.props.onAddProduct(product);
       history.goBack();
@@ -42,6 +39,7 @@ class ProductActionPage extends Component {
   };
   //lifecycle time
   async componentDidMount() {
+    console.log("componentDidMount");
     var { match } = this.props;
     if (match) {
       var id = match.params.id;
@@ -52,35 +50,13 @@ class ProductActionPage extends Component {
         txtPrice: data.price,
         chkStatus: data.status,
       });
-      // .then(
-      //   (res) => {
-      //     // console.log(res, "resresresresres");
-      //     var data = res.data;
-      //     this.setState({
-      //       id: data.id,
-      //       txtName: data.name,
-      //       txtPrice: data.price,
-      //       chkStatus: data.status,
-      //     });
-      //   }
-      // );
-      // console.log(this.props.onEditProduct(id));
     }
   }
 
-  // static getDerivedStateFromProps(nextprops){
-  //   if(nextprops&&nextprops.itemEditing){
-  //     var{itemEditing}=nextprops;
-  //     this.setState({
-  //       id:itemEditing.id,
-  //       txtName:itemEditing.name,
-  //       txtPrice:itemEditing.price,
-  //       chkStatus:itemEditing.status
-  //     });
-  //   }
-  // }
   render() {
-    if (this.state == null) return <div>loading ......</div>;
+    // if (this.state == null) return <div>loading ......</div>;
+    var { txtName, txtPrice, chkStatus } = this.props;
+    console.log(this.state);
     return (
       <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <form onSubmit={this.onSubmit}>
@@ -150,6 +126,9 @@ const mapDispatchtoProps = (dispatch, props) => {
     },
     onEditProduct: (id) => {
       dispatch(actGetProductRequest(id));
+    },
+    onUpdateProduct: (product) => {
+      dispatch(actUpdateProductRequest(product));
     },
   };
 };

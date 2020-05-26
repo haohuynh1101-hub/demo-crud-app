@@ -11,19 +11,23 @@ const products = (state = initialState, action) => {
     case types.DELETE_PRODUCT:
       console.log("before:" + JSON.stringify(state));
       // action.id khớp với state
-      // nhưng vẫn trả index về -1  
-      index = findIndex(state, ['id',action.id]);
-      console.log(action,'acttion')
-      console.log(index,'index');
-      _.remove(state,function(item){
-        return item.id==action.id
-      })
+      // nhưng vẫn trả index về -1
+      index = findIndex(state, ["id", action.id]);
+      console.log(action, "acttion");
+      console.log(index, "index");
+      state.splice(index, 1);
+      // _.remove(state, function (item) {
+      //   return item.id === action.id;
+      // });
       // tim va remove cac item co id = action.id trong state
-
 
       return [...state];
     case types.ADD_PRODUCT:
       state.push(action.product);
+      return [...state];
+    case types.UPDATE_PRODUCT:
+      index = findIndex(state, ["id", action.product.id]);
+      state[index] = action.product;
       return [...state];
     default:
       return [...state];
